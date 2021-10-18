@@ -113,6 +113,14 @@ namespace MathLibrary
         public static bool operator !=(Vector2 lhs, Vector2 rhs)
         {
             return (lhs.X != rhs.X || lhs.Y != rhs.Y);
+
+
+        }
+
+        public static Vector2 operator -(Vector2 rhs)
+        {
+            return new Vector2 { X = -rhs.X, Y = -rhs.Y };
         }
     }
 }
+

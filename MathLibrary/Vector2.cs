@@ -37,10 +37,31 @@ namespace MathLibrary
                 return new Vector2();
 
             return this / Magnitude;
-        } 
+        }
 
+        /// <summary>
+        /// Gets two vectors and multyplies there X and Y's 
+        /// in oder to add them together
+        /// </summary>
+        /// <param name="lhs">left ha</param>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public static float DotProduct(Vector2 lhs, Vector2 rhs)
+        {
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y);
+        }
+
+        /// <summary>
+        /// Finds the distance from the first vector to the second
+        /// </summary>
+        /// <param name="lhs"></param>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public static float Distance(Vector2 lhs, Vector2 rhs)
+        {
+            return (lhs - rhs).Magnitude;
+        }
         
-
         /// <summary>
         /// Overrides the plus oporator in order to add 
         /// two vectors together 

@@ -71,7 +71,7 @@ namespace CoolMathForGames
 
             Player player = new Player('@', 5, 5, 500, Color.PINK, "Player");
 
-            Enemy wampus = new Enemy('W', 500, 200, 200, "Enemy", player, Color.BLUE);
+            Enemy wampus = new Enemy('W', 300, 100, 50, "Enemy", player, Color.BLUE);
 
             scene.AddActor(actor);
             scene.AddActor(actor2);

@@ -9,9 +9,13 @@ namespace CoolMathForGames
     class Enemy : Actor
     {
 
-        private float _speed;
+        private float _speed = 2;
+
         private Vector2 _volocity;
-        private Player _player;
+        
+        private Actor _target;
+
+        private float _lineOfSightRange = 200f;
 
         public float Speed { get { return _speed; } set { _speed = value; } }
 
@@ -26,10 +30,10 @@ namespace CoolMathForGames
         /// <param name="y">y cooridinet position</param>
         /// <param name="name"> classification</param>
         /// <param name="color">There Color</param>
-        public Enemy(char icon, float x, float y, float speed, string name, Player player, Color color) : base(icon, x, y, color, name)
+        public Enemy(char icon, float x, float y, float speed, string name, Actor target, Color color) : base(icon, x, y, color, name)
         {
             _speed = speed;
-            _player = player;
+            _target = target;
         }
 
         public override void Start()
@@ -41,9 +45,11 @@ namespace CoolMathForGames
 
         public override void Update(float deltaTime)
         {
-            Volocity = _player.Posistion - Posistion;
+             Volocity = _target.Posistion - Posistion;
 
-            Posistion += Volocity.Normalzed * Speed * deltaTime;
+            //Posistion += Volocity.Normalzed * Speed * deltaTime;
+                if (GetTargetInSight())
+                    Posistion += Volocity.Normalzed * Speed * deltaTime;
 
             //Posistion += -Volocity.Normalzed * Speed * deltaTime;
 
@@ -58,6 +64,17 @@ namespace CoolMathForGames
             Fallow();
         }
 
+        private bool GetTargetInSight()
+        {
+            Vector2 directionTarget = (_target.Posistion - Posistion).Normalzed;
+
+            float distance = Vector2.Distance(_target.Posistion, Posistion);
+
+            float cosTarget = distance / Posistion.Magnitude;
+
+            return(distance < _lineOfSightRange) && Vector2.DotProduct(directionTarget, Forward) > 0;
+        }
+        
         private void Fallow()
         {
 

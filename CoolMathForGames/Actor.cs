@@ -18,6 +18,7 @@ namespace CoolMathForGames
         private Vector2 _position;
         private bool _started;
         private Vector2 _froward = new Vector2(1,0);
+        private float _collisionRadius;
 
         /// <summary>
         /// True if the start function has been called for this actor
@@ -31,6 +32,8 @@ namespace CoolMathForGames
         public string Name { get { return _name; } }
 
         public Vector2 Forward { get { return _froward; } set { _froward = value; } }
+
+        public float CollisionRadius { get { return _collisionRadius; } set { _collisionRadius = value; } }
 
         public Actor(char icon, Vector2 position, Color color, string name = "Actor")
         {
@@ -65,6 +68,13 @@ namespace CoolMathForGames
         public virtual void OnCollision( Actor actor)
         {
             Engine.CloseApplication();
+        }
+
+        public virtual bool CheckForColision(Actor other)
+        {
+            float combinedRadii = other.CollisionRadius - CollisionRadius;
+            float distance = Vector2.Distance(other.Posistion, Posistion);
+            return distance <= combinedRadii;
         }
 
        

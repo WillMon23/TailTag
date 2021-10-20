@@ -59,24 +59,22 @@ namespace CoolMathForGames
 
             Raylib.SetTargetFPS(0);
 
-            _stopwatch.Start(); 
+            _stopwatch.Start();
 
             //Initulises the characters 
             Scene scene = new Scene();
 
-            //Creats thr actors starting position
-            Actor actor = new Actor('P', new MathLibrary.Vector2 { X = 0, Y = 0 }, Color.DARKPURPLE, "Actor_1" );
-            Actor actor2 = new Actor('A', new MathLibrary.Vector2 { X = 10, Y = 10 },Color.DARKGREEN, "Actor_2" );
-
 
             Player player = new Player('@', 5, 5, 500, Color.PINK, "Player");
+            scene.AddActor(player);
+            player.CollisionRadius = 10;
 
             Enemy wampus = new Enemy('W', 300, 100, 50, "Enemy", player, Color.BLUE);
-
-            scene.AddActor(actor);
-            scene.AddActor(actor2);
-            scene.AddActor(player);
             scene.AddActor(wampus);
+            wampus.CollisionRadius = 10;
+
+            UIText healthText = new UIText(30, 3, "Health", Color.WHITE, 200, 100,5);
+            scene.AddUIElement(healthText);
 
             _currentSceneIndex = AddScene(scene);
         }
@@ -96,6 +94,7 @@ namespace CoolMathForGames
             Raylib.ClearBackground(Color.BLACK);
             //Adds all actor icon to buffer
             _scenes[_currentSceneIndex].Draw();
+            _scenes[_currentSceneIndex].DrawUI();
 
             Raylib.EndDrawing();
             
@@ -108,6 +107,7 @@ namespace CoolMathForGames
         private void Update(float deltTime)
         {
             _scenes[_currentSceneIndex].Update(deltTime);
+            _scenes[_currentSceneIndex].UpdateUI(deltTime);
 
             while (Console.KeyAvailable)
                 Console.ReadKey(true);

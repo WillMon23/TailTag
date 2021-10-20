@@ -43,7 +43,7 @@ namespace CoolMathForGames
 
         public override void OnCollision(Actor actor)
         {
-            Console.WriteLine("Collision Occured");
+            Engine.CloseApplication();
         }
 
 

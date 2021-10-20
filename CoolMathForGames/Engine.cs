@@ -7,7 +7,7 @@ using Raylib_cs;
 using System.Diagnostics;
 
 
-namespace TailTag
+namespace CoolMathForGames
 {
     class Engine
     {
@@ -67,21 +67,18 @@ namespace TailTag
             //Creats thr actors starting position
             Actor actor = new Actor('P', new MathLibrary.Vector2 { X = 0, Y = 0 }, Color.DARKPURPLE, "Actor_1" );
             Actor actor2 = new Actor('A', new MathLibrary.Vector2 { X = 10, Y = 10 },Color.DARKGREEN, "Actor_2" );
+
+
+            Player player = new Player('@', 5, 5, 500, Color.PINK, "Player");
+
+            Enemy wampus = new Enemy('W', 300, 100, 50, "Enemy", player, Color.BLUE);
+
             scene.AddActor(actor);
             scene.AddActor(actor2);
-
-           
-            Player player = new Player('@', 5, 5, 500, Color.PINK, "Player"); 
             scene.AddActor(player);
-
-            Enemy wampus = new Enemy('W', 300, 100, 50, "Enemy", 1, player, Color.BLUE);
             scene.AddActor(wampus);
-            
-            //UIText UIText = new UIText(10, 10, "TextBox", Color.BEIGE, 70, 70, 15, "This is a test. \n It's not to be taken serously");
-            //scene.AddUIElement(UIText);
 
             _currentSceneIndex = AddScene(scene);
-           
         }
 
         /// <summary>
@@ -99,7 +96,6 @@ namespace TailTag
             Raylib.ClearBackground(Color.BLACK);
             //Adds all actor icon to buffer
             _scenes[_currentSceneIndex].Draw();
-            _scenes[_currentSceneIndex].DrawUI();
 
             Raylib.EndDrawing();
             
@@ -112,7 +108,6 @@ namespace TailTag
         private void Update(float deltTime)
         {
             _scenes[_currentSceneIndex].Update(deltTime);
-            _scenes[_currentSceneIndex].UpdateUI(deltTime);
 
             while (Console.KeyAvailable)
                 Console.ReadKey(true);

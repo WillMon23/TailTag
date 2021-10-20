@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TailTag
+namespace CoolMathForGames
 {
     class Scene
     {
@@ -10,11 +10,9 @@ namespace TailTag
         /// Array thst contsind all the scenes 
         /// </summary>
         private Actor[] _actors;
-        private Actor[] _UIElements;
         public Scene()
         {
             _actors = new Actor[0];
-            _UIElements = new Actor[0];
         }
 
         /// <summary>
@@ -23,39 +21,27 @@ namespace TailTag
         public virtual void Start()
         {
             for (int i = 0; i < _actors.Length; i++)
-                _actors[i].Start();
+                    _actors[i].Start();    
         }
 
         /// <summary>
         /// Calls all the actors in the scene 
         /// </summary>
-        public virtual void Update(float deltaTime )
+        public virtual void Update(float deltTime)
         {
             for (int i = 0; i < _actors.Length; i++)
             {
                 if (!_actors[i].Started)
                     _actors[i].Start();
-
-                _actors[i].Update(deltaTime);
+                    
+                _actors[i].Update(deltTime);
 
                 //Checks for collision
-                for (int j = 0; j < _actors.Length; j++)
+                for( int j = 0; j < _actors.Length; j++)
                 {
                     if (_actors[i].Posistion == _actors[j].Posistion && j != i)
                         _actors[i].OnCollision(_actors[j]);
                 }
-            }
-        }
-
-        public virtual void UpdateUI(float deltaTime)
-        {
-
-            for (int i = 0; i < _UIElements.Length; i++)
-            {
-                if (!_UIElements[i].Started)
-                    _UIElements[i].Start();
-
-                _UIElements[i].Update(deltaTime);
             }
         }
 
@@ -67,13 +53,6 @@ namespace TailTag
             for (int i = 0; i < _actors.Length; i++)
                 _actors[i].Draw();
         }
-
-        public virtual void DrawUI()
-        {
-            for (int i = 0; i < _UIElements.Length; i++)
-                _UIElements[i].Draw();
-        }
-
 
         /// <summary>
         /// Once update ends the 
@@ -102,20 +81,7 @@ namespace TailTag
             tempArray[_actors.Length] = actor;
             //Set the old array to the new array 
             _actors = tempArray;
-        }
-
-        public virtual void AddUIElement(Actor UI)
-        {
-            Actor[] tempArray = new Actor[_UIElements.Length + 1];
-
-            //Copy all the values from the original array into the temp array
-            for (int i = 0; i < _UIElements.Length; i++)
-                tempArray[i] = _UIElements[i];
-            //Add the new actor to the end of the new array 
-            tempArray[_UIElements.Length] = UI;
-            //Set the old array to the new array 
-            _UIElements = tempArray;
-        }
+        } 
 
         /// <summary>
         /// Removes ana actor from the arary of actors 
@@ -132,7 +98,7 @@ namespace TailTag
             int j = 0;
 
             //Copy's all the actors from the old array to the new array that we don't want to remove 
-            for (int i = 0; i < tempArray.Length; i++)
+            for(int i = 0; i < tempArray.Length; i++)
             {
                 // If the actor does not equal to the actor we want 
                 if (_actors[i] != actor)

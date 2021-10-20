@@ -4,7 +4,7 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace TailTag
+namespace CoolMathForGames
 {
     class Enemy : Actor
     {
@@ -15,7 +15,7 @@ namespace TailTag
         
         private Actor _target;
 
-        private float _maxView;
+        private float _lineOfSightRange = 200f;
 
         public float Speed { get { return _speed; } set { _speed = value; } }
 
@@ -30,11 +30,10 @@ namespace TailTag
         /// <param name="y">y cooridinet position</param>
         /// <param name="name"> classification</param>
         /// <param name="color">There Color</param>
-        public Enemy(char icon, float x, float y, float speed, string name, float maxView, Actor target, Color color) : base(icon, x, y, color, name)
+        public Enemy(char icon, float x, float y, float speed, string name, Actor target, Color color) : base(icon, x, y, color, name)
         {
             _speed = speed;
             _target = target;
-            _maxView = maxView;
         }
 
         public override void Start()
@@ -42,11 +41,6 @@ namespace TailTag
             base.Start();
 
             Volocity = new Vector2 { X = 2, Y = 2 };
-        }
-
-        public override void Draw()
-        {
-           
         }
 
         public override void Update(float deltaTime)
@@ -74,22 +68,16 @@ namespace TailTag
         {
             Vector2 directionTarget = (_target.Posistion - Posistion).Normalzed;
 
-            float dotProduct = Vector2.DotProduct(directionTarget, Forward);
+            float distance = Vector2.Distance(_target.Posistion, Posistion);
 
-            //float distance = Vector2.Distance(_target.Posistion, Posistion);
+            float cosTarget = distance / Posistion.Magnitude;
 
-            float cosTarget = (float)Math.Acosh(dotProduct);
-
-            Console.WriteLine("Cosin Target: " + cosTarget);
-            
-            return cosTarget < _maxView && dotProduct > 0;
+            return(distance < _lineOfSightRange) && Vector2.DotProduct(directionTarget, Forward) > 0;
         }
         
         private void Fallow()
         {
 
         }
-
-    
     }
 }

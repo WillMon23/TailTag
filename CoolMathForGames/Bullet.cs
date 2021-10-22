@@ -40,7 +40,12 @@ namespace TailTag
 
              Volocity = Target.Posistion - Posistion;
 
-            Posistion += Volocity* Speed * deltaTime;
+            Posistion += Volocity. Normalzed * Speed * deltaTime;
+        }
+
+        public override void Draw()
+        {
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 15, Icon.Color);
         }
 
         public override void OnCollision(Actor actor)

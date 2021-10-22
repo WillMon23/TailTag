@@ -6,7 +6,7 @@ using Raylib_cs;
 
 namespace TailTag
 {
-    struct Icon
+    public struct Icon
     {
         public char Symbol;
         public Color Color;
@@ -59,7 +59,8 @@ namespace TailTag
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 50, Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 30, Icon.Color);
+            Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius, Color.LIME);
         }
 
         public virtual void End()
@@ -74,7 +75,7 @@ namespace TailTag
 
         public virtual bool CheckForColision(Actor other)
         {
-            float combinedRadii = other.CollisionRadius - CollisionRadius;
+            float combinedRadii = other.CollisionRadius + CollisionRadius;
             float distance = Vector2.Distance(other.Posistion, Posistion);
             return distance <= combinedRadii;
         }

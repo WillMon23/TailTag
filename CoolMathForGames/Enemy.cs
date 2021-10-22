@@ -59,18 +59,18 @@ namespace TailTag
                     _bullets[i].Start();
             
             Volocity = _target.Posistion - Posistion;
+
+            
             
             tally++;
 
             //Posistion += Volocity.Normalzed * Speed * deltaTime;
             if (GetTargetInSight())
             {
-                _shot.Update(deltaTime);
-                _shot.Draw();
+                AddBullet();
                 if (tally == 1000)
                 { 
-
-                    AddBullet(_shot);
+                    
                     tally = 0;
                 }
                
@@ -81,11 +81,6 @@ namespace TailTag
             _shot.Draw();
             
             UpdateBullet(deltaTime);
-
-            DrawBullet();
-
-
-
 
         }
         public override void OnCollision(Actor actor)
@@ -105,8 +100,9 @@ namespace TailTag
             return(distance < _lineOfSightRange) && Vector2.DotProduct(directionTarget, Forward) > 0;
         }
 
-        private void AddBullet(Bullet bullet)
+        private void AddBullet()
         {
+            Bullet shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2));
             Bullet[] temp = new Bullet[_bullets.Length + 1];
 
             for(int i = 0; i < _bullets.Length; i++)
@@ -114,7 +110,7 @@ namespace TailTag
                 temp[i] = _bullets[i];
             }
 
-            temp[_bullets.Length] = bullet;
+            temp[_bullets.Length] = shot;
 
             _bullets = temp;
         }
@@ -123,8 +119,9 @@ namespace TailTag
         {
             for(int i = 0; i < _bullets.Length; i++)
             {
-                
+                _bullets[i].Draw();
                 _bullets[i].Update(deltaTime);
+                
             }
         }
 

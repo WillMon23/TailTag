@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoolMathForGames
+namespace TailTag
 {
     class Program
     {

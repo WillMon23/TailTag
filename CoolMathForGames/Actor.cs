@@ -4,7 +4,7 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace CoolMathForGames
+namespace TailTag
 {
     struct Icon
     {
@@ -27,7 +27,7 @@ namespace CoolMathForGames
 
         public Vector2 Posistion { get { return _position; } set { _position = value; } }
         
-        public Icon Icon { get { return _icon; } }
+        public Icon Icon { get { return _icon; } set { _icon = value; } }
 
         public string Name { get { return _name; } }
 

@@ -7,7 +7,7 @@ using Raylib_cs;
 using System.Diagnostics;
 
 
-namespace CoolMathForGames
+namespace TailTag
 {
     class Engine
     {
@@ -69,7 +69,7 @@ namespace CoolMathForGames
             scene.AddActor(player);
             player.CollisionRadius = 10;
 
-            Enemy wampus = new Enemy('W', 300, 100, 50, "Enemy", player, Color.BLUE);
+            Enemy wampus = new Enemy('e', 300, 100, 50, "Enemy", player, Color.BLUE);
             scene.AddActor(wampus);
             wampus.CollisionRadius = 10;
 
@@ -123,7 +123,7 @@ namespace CoolMathForGames
         }
 
         /// <summary>
-        /// Created to append new scnene to the current listing of scene 
+        /// Created to append new scnene to the current listing of scene           
         /// </summary>
         /// <param name="scene">Scene being added to the current list of scens</param>
         /// <returns>returns the new ammount of scenes</returns>

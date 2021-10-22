@@ -4,18 +4,22 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace CoolMathForGames
+namespace TailTag
 {
     class Enemy : Actor
     {
 
-        private float _speed = 2;
+        private float _speed;
 
         private Vector2 _volocity;
         
         private Actor _target;
 
         private float _lineOfSightRange = 200f;
+
+        private Bullet[] _bullets;
+
+        private Bullet _shot;
 
         public float Speed { get { return _speed; } set { _speed = value; } }
 
@@ -40,26 +44,52 @@ namespace CoolMathForGames
         {
             base.Start();
 
+            _bullets = new Bullet[0];
+
+            _shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2));
+
             Volocity = new Vector2 { X = 2, Y = 2 };
         }
 
         public override void Update(float deltaTime)
         {
-             Volocity = _target.Posistion - Posistion;
+            int tally = 0;
+            for (int i = 0; i < _bullets.Length; i++)
+                if (_bullets[i].Started)
+                    _bullets[i].Start();
+            
+            Volocity = _target.Posistion - Posistion;
+            
+            tally++;
 
             //Posistion += Volocity.Normalzed * Speed * deltaTime;
-                if (GetTargetInSight())
-                    Posistion += Volocity.Normalzed * Speed * deltaTime;
+            if (GetTargetInSight())
+            {
+                _shot.Update(deltaTime);
+                _shot.Draw();
+                if (tally == 1000)
+                { 
 
-            //Posistion += -Volocity.Normalzed * Speed * deltaTime;
+                    AddBullet(_shot);
+                    tally = 0;
+                }
+               
+
+                Posistion += Volocity.Normalzed * Speed * deltaTime;
+            }
+            _shot.Update(deltaTime);
+            _shot.Draw();
+            
+            UpdateBullet(deltaTime);
+
+            DrawBullet();
+
+
 
 
         }
-
         public override void OnCollision(Actor actor)
-        {
-            //if(actor.Name == "Wall")
-            // Posistion -= Volocity;
+        { 
 
             Fallow();
         }
@@ -74,10 +104,48 @@ namespace CoolMathForGames
 
             return(distance < _lineOfSightRange) && Vector2.DotProduct(directionTarget, Forward) > 0;
         }
+
+        private void AddBullet(Bullet bullet)
+        {
+            Bullet[] temp = new Bullet[_bullets.Length + 1];
+
+            for(int i = 0; i < _bullets.Length; i++)
+            {
+                temp[i] = _bullets[i];
+            }
+
+            temp[_bullets.Length] = bullet;
+
+            _bullets = temp;
+        }
         
+        private void UpdateBullet(float deltaTime)
+        {
+            for(int i = 0; i < _bullets.Length; i++)
+            {
+                
+                _bullets[i].Update(deltaTime);
+            }
+        }
+
+        private void DrawBullet()
+        {
+            for (int i = 0; i < _bullets.Length; i++)
+            {
+                _bullets[i].Draw();
+            }
+        }
+
         private void Fallow()
         {
 
         }
+
+        private void ShotPlayer(float deltaTime)
+        {
+            
+        }
+
+
     }
 }

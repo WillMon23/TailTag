@@ -4,16 +4,19 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace CoolMathForGames
+namespace TailTag
 {
     class Player : Actor
     {
         private float _speed;
         private Vector2 _volocity;
+
         
         public float Speed { get { return _speed; } set { _speed = value; } }
 
         public Vector2 Volocity {  get { return _volocity; } set { _volocity = value; } }
+
+
 
         public Player(char icon, float x, float y, float speed, Color color, string name = "Actor") 
             :base( icon,  x,  y,color,  name = "Actor"  )
@@ -30,6 +33,8 @@ namespace CoolMathForGames
 
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W)) + 
                 Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
+
+
 
             Vector2 moveDirecton = new Vector2(xDirection, yDirection);
 

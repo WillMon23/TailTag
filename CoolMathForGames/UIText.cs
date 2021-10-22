@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Raylib_cs;
 
-namespace CoolMathForGames
+namespace TailTag
 {
     class UIText : Actor
     {

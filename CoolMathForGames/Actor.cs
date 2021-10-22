@@ -35,6 +35,8 @@ namespace TailTag
 
         public float CollisionRadius { get { return _collisionRadius; } set { _collisionRadius = value; } }
 
+        public Actor() { }
+
         public Actor(char icon, Vector2 position, Color color, string name = "Actor")
         {
             _icon = new Icon { Symbol = icon, Color = color }; 

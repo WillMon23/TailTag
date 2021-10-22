@@ -19,6 +19,8 @@ namespace TailTag
 
         private Bullet[] _bullets;
 
+        int _tally;
+
         private Bullet _shot;
 
         public float Speed { get { return _speed; } set { _speed = value; } }
@@ -44,48 +46,38 @@ namespace TailTag
         {
             base.Start();
 
-            _bullets = new Bullet[0];
+            _tally = 0;
 
-            _shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2));
+            _bullets = new Bullet[0];
 
             Volocity = new Vector2 { X = 2, Y = 2 };
         }
 
         public override void Update(float deltaTime)
         {
-            int tally = 0;
-            for (int i = 0; i < _bullets.Length; i++)
-                if (_bullets[i].Started)
-                    _bullets[i].Start();
-            
-            Volocity = _target.Posistion - Posistion;
 
+            Volocity = _target.Posistion - Posistion;
             
             
-            tally++;
 
             //Posistion += Volocity.Normalzed * Speed * deltaTime;
             if (GetTargetInSight())
             {
-                AddBullet();
-                if (tally == 1000)
-                { 
-                    
-                    tally = 0;
-                }
-               
-
+                
                 Posistion += Volocity.Normalzed * Speed * deltaTime;
+                if (_tally >= 1000)
+                {
+                    AddBullet();
+                    _tally = 0;
+                }
             }
-            _shot.Update(deltaTime);
-            _shot.Draw();
-            
+
             UpdateBullet(deltaTime);
+            _tally++;
 
         }
         public override void OnCollision(Actor actor)
         { 
-
             Fallow();
         }
 
@@ -97,12 +89,28 @@ namespace TailTag
 
             float cosTarget = distance / Posistion.Magnitude;
 
-            return(distance < _lineOfSightRange) && Vector2.DotProduct(directionTarget, Forward) > 0;
+            return(distance < _lineOfSightRange) || Vector2.DotProduct(directionTarget, Forward) > 0;
         }
 
         private void AddBullet()
         {
-            Bullet shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2));
+            Random rng = new Random();
+
+            int chance = rng.Next(1, 5);
+
+            Bullet shot = new Bullet('.', Posistion, Color.GREEN, _target, (Speed * 2));
+
+
+            if (chance == 1)
+                shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2));
+
+            else if (chance == 2)
+                shot = new Bullet('.', Posistion, Color.BLUE, _target, (Speed * 2));
+
+            else if (chance >= 3)
+                 shot = new Bullet('.', Posistion, Color.GREEN, _target, (Speed * 2));
+
+
             Bullet[] temp = new Bullet[_bullets.Length + 1];
 
             for(int i = 0; i < _bullets.Length; i++)

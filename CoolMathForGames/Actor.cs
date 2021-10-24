@@ -37,15 +37,16 @@ namespace TailTag
 
         public Actor() { }
 
-        public Actor(char icon, Vector2 position, Color color, string name = "Actor")
+        public Actor(char icon, Vector2 position, Color color, float collision, string name = "Actor")
         {
             _icon = new Icon { Symbol = icon, Color = color }; 
             _name = name;
             _position = position;
+            _collisionRadius = collision;
         }
 
-        public Actor(char icon, float x, float y, Color color, string name = "Actor") :
-            this(icon, new Vector2 { X = x, Y = y }, color, name){ }
+        public Actor(char icon, float x, float y, Color color,float collision, string name = "Actor") :
+            this(icon, new Vector2 { X = x, Y = y }, color, collision, name){ }
 
         public virtual void Start()
         {
@@ -59,8 +60,8 @@ namespace TailTag
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 30, Icon.Color);
-            Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius, Color.LIME);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, (int)CollisionRadius /2 , Icon.Color);
+            Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius , Color.LIME);
         }
 
         public virtual void End()
@@ -70,7 +71,7 @@ namespace TailTag
 
         public virtual void OnCollision( Actor actor)
         {
-            Engine.CloseApplication();
+            this.End();
         }
 
         public virtual bool CheckForColision(Actor other)

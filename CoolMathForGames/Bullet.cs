@@ -20,7 +20,7 @@ namespace TailTag
 
         public Vector2 Volocity {  get { return _volocity; } set { _volocity = value; } }
 
-        public Bullet(Char icon, Vector2 postion, Color color, Actor target, float speed, string name = "Bullet") : base(icon, postion, color, name)
+        public Bullet(Char icon, Vector2 postion, Color color, Actor target, float speed, float collision, string name = "Bullet") : base(icon, postion, color, collision, name)
         {
             _target = target;
             _speed = speed;
@@ -28,29 +28,25 @@ namespace TailTag
 
         public Bullet() { }
 
+
         public override void Start()
         {
             base.Start();
-            _volocity = new Vector2( 2, 2 );
+            _volocity = Target.Posistion;
         }
 
         public override void Update(float deltaTime)
         {
             float bulletSpeed = Speed / 2;
 
-             Volocity = Target.Posistion - Posistion;
+            Volocity = Target.Posistion - Posistion;
 
-            Posistion += Volocity. Normalzed * Speed * deltaTime;
-        }
-
-        public override void Draw()
-        {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 15, Icon.Color);
+            Posistion += new Vector2(-1,0) * Speed * deltaTime;
         }
 
         public override void OnCollision(Actor actor)
         {
-            base.End();
+            
         }
     }
 }

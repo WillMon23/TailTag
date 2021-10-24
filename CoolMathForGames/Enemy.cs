@@ -36,7 +36,7 @@ namespace TailTag
         /// <param name="y">y cooridinet position</param>
         /// <param name="name"> classification</param>
         /// <param name="color">There Color</param>
-        public Enemy(char icon, float x, float y, float speed, string name, Actor target, Color color) : base(icon, x, y, color, name)
+        public Enemy(char icon, float x, float y, float speed, float collision, string name, Actor target, Color color) : base(icon, x, y, color, collision, name)
         {
             _speed = speed;
             _target = target;
@@ -89,7 +89,7 @@ namespace TailTag
 
             float cosTarget = distance / Posistion.Magnitude;
 
-            return(distance < _lineOfSightRange) || Vector2.DotProduct(directionTarget, Forward) > 0;
+            return(distance < _lineOfSightRange) || Vector2.DotProduct(directionTarget, Forward) < 0;
         }
 
         private void AddBullet()
@@ -98,17 +98,17 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet shot = new Bullet('.', Posistion, Color.GREEN, _target, (Speed * 2));
+            Bullet shot = new Bullet('.', Posistion, Color.GREEN, _target, (Speed * 2), 10);
 
 
             if (chance == 1)
-                shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2));
+                shot = new Bullet('.', Posistion, Color.RED, _target, (Speed * 2), 10);
 
             else if (chance == 2)
-                shot = new Bullet('.', Posistion, Color.BLUE, _target, (Speed * 2));
+                shot = new Bullet('.', Posistion, Color.BLUE, _target, (Speed * 2), 10);
 
             else if (chance >= 3)
-                 shot = new Bullet('.', Posistion, Color.GREEN, _target, (Speed * 2));
+                 shot = new Bullet('.', Posistion, Color.GREEN, _target, (Speed * 2), 10);
 
 
             Bullet[] temp = new Bullet[_bullets.Length + 1];

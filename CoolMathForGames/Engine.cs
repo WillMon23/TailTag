@@ -54,6 +54,7 @@ namespace TailTag
         /// </summary>
         private void Start()
         {
+
             //Creats a window  using raylib
             Raylib.InitWindow(800, 450, "Math For Games");
 
@@ -65,25 +66,24 @@ namespace TailTag
             Scene scene = new Scene();
 
 
-            Player player = new Player('►', 5, 5, 500, Color.PINK, "Player");
+            Player player = new Player('>', 5, 5, 500, Color.PINK, 30, "Player");
             scene.AddActor(player);
             player.CollisionRadius = 30;
 
-            Enemy wampus = new Enemy('e', 300, 100, 50, "Enemy", player, Color.BLUE);
+            Enemy wampus = new Enemy('<', 300, 100, 50, 50, "Enemy", player, Color.BLUE);
             scene.AddActor(wampus);
             wampus.CollisionRadius = 30;
 
-            Enemy wampus2 = new Enemy('e', 500, 300, 50, "Enemy", player, Color.BLUE);
+            Enemy wampus2 = new Enemy('<', 500, 300, 50, 30, "Enemy", player, Color.BLUE);
             scene.AddActor(wampus2);
             wampus2.CollisionRadius = 20;
 
-            Enemy wampus3 = new Enemy('e', 100, 200, 50, "Enemy", player, Color.BLUE);
+            Enemy wampus3 = new Enemy('<', 100, 200, 50, 30, "Enemy", player, Color.BLUE);
             scene.AddActor(wampus3);
             wampus3.CollisionRadius = 30;
 
-            UIText healthText = new UIText(30, 3, "Health", Color.WHITE, 200, 100,5);
+            UIText healthText = new UIText(30, 3, "Health", Color.WHITE, 200, 100, 5);
             scene.AddUIElement(healthText);
-
             _currentSceneIndex = AddScene(scene);
         }
 

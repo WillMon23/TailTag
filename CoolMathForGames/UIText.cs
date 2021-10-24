@@ -25,8 +25,8 @@ namespace TailTag
 
 
 
-        public UIText(float x, float y, string name, Color color, int width, int height, int fontSize, string text = "")
-            : base('\0', x, y, color, name)
+        public UIText(float x, float y, string name, Color color, int width, int height, int fontSize, float collision = 0, string text = "")
+            : base('\0', x, y, color, collision, name)
         {
             _text = text;
             _width = width;

@@ -14,16 +14,16 @@ namespace TailTag
 
         private Vector2 _volocity; 
 
-        public Actor Target { get { return _target; } }
 
         public float Speed { get { return _speed; } } 
 
         public Vector2 Volocity {  get { return _volocity; } set { _volocity = value; } }
 
-        public Bullet(Char icon, Vector2 postion, Color color, Actor target, float speed, float collision, string name = "Bullet") : base(icon, postion, color, collision, name)
+        public Bullet(Char icon, Vector2 postion, Color color, float speed, float collision, Vector2 volocoty, string name = "Bullet") : base(icon, postion, color, collision, name)
         {
-            _target = target;
+            
             _speed = speed;
+            _volocity = volocoty;
         }
 
         public Bullet() { }
@@ -32,21 +32,22 @@ namespace TailTag
         public override void Start()
         {
             base.Start();
-            _volocity = Target.Posistion;
+            
         }
 
         public override void Update(float deltaTime)
         {
-            float bulletSpeed = Speed / 2;
+            float bulletSpeed = Speed * 2;
 
-            Volocity = Target.Posistion - Posistion;
-
-            Posistion += new Vector2(-1,0) * Speed * deltaTime;
+            Posistion +=  Volocity * Speed * deltaTime;
         }
 
         public override void OnCollision(Actor actor)
         {
-            
+            if(actor.Icon.Symbol == '.')
+            {
+                
+            }
         }
     }
 }

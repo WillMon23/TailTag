@@ -66,21 +66,19 @@ namespace TailTag
             Scene scene = new Scene();
 
 
-            Player player = new Player('>', 5, 5, 500, Color.PINK, 30, "Player");
+            Player player = new Player('>', 5, 5, 500, Color.PINK, 30, scene, "Player");
             scene.AddActor(player);
-            player.CollisionRadius = 30;
 
-            Enemy wampus = new Enemy('<', 300, 100, 50, 50, "Enemy", player, Color.BLUE);
+
+            Enemy wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus);
-            wampus.CollisionRadius = 30;
 
-            Enemy wampus2 = new Enemy('<', 500, 300, 50, 30, "Enemy", player, Color.BLUE);
+
+            Enemy wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus2);
-            wampus2.CollisionRadius = 20;
 
-            Enemy wampus3 = new Enemy('<', 100, 200, 50, 30, "Enemy", player, Color.BLUE);
+            Enemy wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus3);
-            wampus3.CollisionRadius = 30;
 
             UIText healthText = new UIText(30, 3, "Health", Color.WHITE, 200, 100, 5);
             scene.AddUIElement(healthText);

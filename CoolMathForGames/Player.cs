@@ -11,12 +11,15 @@ namespace TailTag
         private float _speed;
         private Vector2 _volocity;
         private Scene _currentScene;
-        int _tally;
+        private int _tally;
+        private bool _alive = false;
 
-        
+
         public float Speed { get { return _speed; } set { _speed = value; } }
 
         public Vector2 Volocity {  get { return _volocity; } set { _volocity = value; } }
+
+        public bool Alive {  get { return _alive; } }
 
         public Player(char icon, float x, float y, float speed, Color color, float collision, Scene currentScne, string name = "Actor") 
             :base( icon,  x,  y,color,collision,  name = "Actor"  )
@@ -60,7 +63,9 @@ namespace TailTag
 
         public override void OnCollision(Actor actor)
         {
-            
+            if (actor.Icon.Symbol == '.')
+                _alive = true;
+
         }
 
 
@@ -70,16 +75,16 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(1,0));
+            Bullet pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(1,0), _currentScene);
 
                 if (chance == 1)
-                    pShot = new Bullet('.', Posistion, Color.RED, (Speed * 2), 10, new Vector2(1, 0));
+                    pShot = new Bullet('.', Posistion, Color.RED, (Speed * 2), 10, new Vector2(1, 0), _currentScene);
 
                 else if (chance == 2)
-                    pShot = new Bullet('.', Posistion, Color.BLUE, (Speed * 2), 10, new Vector2(1, 0));
+                    pShot = new Bullet('.', Posistion, Color.BLUE, (Speed * 2), 10, new Vector2(1, 0), _currentScene);
 
                 else if (chance >= 3)
-                    pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(1, 0));
+                    pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(1, 0), _currentScene);
             
 
 

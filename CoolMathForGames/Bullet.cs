@@ -7,21 +7,26 @@ using Raylib_cs;
 namespace TailTag
 {
     class Bullet : Actor
-    {
-        private Actor _target;
+    { 
 
         private float _speed;
 
-        private Vector2 _volocity; 
+        private Vector2 _volocity;
+
+        private Scene _currentScene;
+
+        private bool _alive = false;
 
 
         public float Speed { get { return _speed; } } 
 
         public Vector2 Volocity {  get { return _volocity; } set { _volocity = value; } }
 
-        public Bullet(Char icon, Vector2 postion, Color color, float speed, float collision, Vector2 volocoty, string name = "Bullet") : base(icon, postion, color, collision, name)
+        public bool Alive { get { return _alive; } }
+
+        public Bullet(Char icon, Vector2 postion, Color color, float speed, float collision, Vector2 volocoty, Scene currentScene, string name = "Bullet") : base(icon, postion, color, collision, name)
         {
-            
+            _currentScene = currentScene;
             _speed = speed;
             _volocity = volocoty;
         }
@@ -44,7 +49,7 @@ namespace TailTag
 
         public override void OnCollision(Actor actor)
         {
-            if(actor.Icon.Symbol == '.')
+            if(actor.Icon.Symbol == '<')
             {
                 
             }

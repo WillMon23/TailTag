@@ -17,6 +17,14 @@ namespace TailTag
         private static Icon[,] _buffer;
         Stopwatch _stopwatch = new Stopwatch();
 
+        Player player;
+
+        Enemy wampus;
+
+        Enemy wampus2;
+
+        Enemy wampus3;
+
         /// <summary>
         /// Called to begin the application 
         /// </summary>
@@ -54,6 +62,8 @@ namespace TailTag
         /// </summary>
         private void Start()
         {
+            
+            
 
             //Creats a window  using raylib
             Raylib.InitWindow(800, 450, "Math For Games");
@@ -64,21 +74,25 @@ namespace TailTag
 
             //Initulises the characters 
             Scene scene = new Scene();
+           
 
 
-            Player player = new Player('>', 5, 5, 500, Color.PINK, 30, scene, "Player");
+            player = new Player('>', 30, 225, 500, Color.PINK, 30, scene, "Player");
             scene.AddActor(player);
 
 
-            Enemy wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, player, Color.BLUE);
+            wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus);
 
 
-            Enemy wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, player, Color.BLUE);
+            wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus2);
 
-            Enemy wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, player, Color.BLUE);
+            wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus3);
+
+            
+
 
             UIText healthText = new UIText(30, 3, "Health", Color.WHITE, 200, 100, 5);
             scene.AddUIElement(healthText);
@@ -114,6 +128,9 @@ namespace TailTag
         {
             _scenes[_currentSceneIndex].Update(deltTime);
             _scenes[_currentSceneIndex].UpdateUI(deltTime);
+
+            //if (!wampus.Alive)
+            //    _scenes[_currentSceneIndex].RemoveActor(wampus);
 
             while (Console.KeyAvailable)
                 Console.ReadKey(true);

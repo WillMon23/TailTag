@@ -17,7 +17,7 @@ namespace TailTag
 
         private float _lineOfSightRange = 200f;
 
-        private Bullet[] _bullets;
+        private bool _alive = false;
 
         Scene _currentScene;
 
@@ -26,6 +26,8 @@ namespace TailTag
         public float Speed { get { return _speed; } set { _speed = value; } }
 
         public Vector2 Volocity { get { return _volocity; } set { _volocity = value; } }
+
+        public bool Alive { get { return _alive; } }
 
         /// <summary>
         /// Enemy Contructor 
@@ -75,8 +77,9 @@ namespace TailTag
 
         }
         public override void OnCollision(Actor actor)
-        { 
-            Fallow();
+        {
+            if (actor.Icon.Symbol == '.')
+                _alive = true;
         }
 
         /// <summary>
@@ -103,17 +106,17 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(-1, 0));
+            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(-1, 0),_currentScene);
 
 
             if (chance == 1)
-                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3), 10, new Vector2(-1, 0));
+                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3), 10, new Vector2(-1, 0), _currentScene);
 
             else if (chance == 2)
-                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4), 10, new Vector2(-1, 0));
+                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4), 10, new Vector2(-1, 0), _currentScene);
 
             else if (chance >= 3)
-                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5), 10, new Vector2(-1, 0));
+                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5), 10, new Vector2(-1, 0), _currentScene);
 
            _currentScene.AddActor(shot);
         }

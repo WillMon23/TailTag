@@ -54,7 +54,7 @@ namespace TailTag
 
             if (_tally >= 2000)
             {
-                _currentScene.RemoveActor(this);
+                this.Icon = new Icon { Symbol = '\0' };
                 _tally = 0;
             }
             _tally++;

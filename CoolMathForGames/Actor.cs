@@ -37,10 +37,7 @@ namespace TailTag
 
         public Actor() 
         {
-            _icon = new Icon { Symbol = '\0', Color = Color.BLACK };
-            _name = "Defult";
-            _position = new Vector2(0,0);
-            _collisionRadius = 10;
+          
         }
 
         public Actor(char icon, Vector2 position, Color color, float collision, string name = "Actor")
@@ -66,8 +63,8 @@ namespace TailTag
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, (int)CollisionRadius /2 , Icon.Color);
-            Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius , Color.LIME);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, (int)CollisionRadius  , Icon.Color);
+            //Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius , Color.LIME);
         }
 
         public virtual void End()

@@ -17,13 +17,15 @@ namespace TailTag
         private static Icon[,] _buffer;
         Stopwatch _stopwatch = new Stopwatch();
 
-        Player player;
+        int _tally = 0;
 
-        Enemy wampus;
+        private Player _player;
 
-        Enemy wampus2;
+        private Enemy _wampus;
 
-        Enemy wampus3;
+        private Enemy _wampus2;
+
+        private Enemy _wampus3;
 
         /// <summary>
         /// Called to begin the application 
@@ -77,25 +79,28 @@ namespace TailTag
            
 
 
-            player = new Player('>', 30, 225, 500, Color.PINK, 30, scene, "Player");
-            scene.AddActor(player);
+            _player = new Player('>', 30, 225, 500, Color.PINK, 30, scene, "Player");
+            scene.AddActor(_player);
+
+            UIText healthText = new UIText(30, 3, "Health", Color.BLUE, 200, 100, 50);
+            UIText livesText = new UIText(50, 3, "Lives", Color.RED, 10, 10,50);
+            PlayerHud playerHud = new PlayerHud(_player, healthText, livesText);
 
 
-            wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, player, Color.BLUE);
-            scene.AddActor(wampus);
+            _wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, _player, Color.BLUE);
+            scene.AddActor(_wampus);
 
 
-            wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, player, Color.BLUE);
-            scene.AddActor(wampus2);
+            _wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, _player, Color.BLUE);
+            scene.AddActor(_wampus2);
 
-            wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, player, Color.BLUE);
-            scene.AddActor(wampus3);
+            _wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, _player, Color.BLUE);
+            scene.AddActor(_wampus3);
 
             
 
 
-            UIText healthText = new UIText(30, 3, "Health", Color.WHITE, 200, 100, 5);
-            scene.AddUIElement(healthText);
+            scene.AddUIElement(playerHud);
             _currentSceneIndex = AddScene(scene);
         }
 
@@ -126,12 +131,37 @@ namespace TailTag
         /// </summary>
         private void Update(float deltTime)
         {
+            Random rng = new Random();
+
             _scenes[_currentSceneIndex].Update(deltTime);
             _scenes[_currentSceneIndex].UpdateUI(deltTime);
 
             
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
+
+            Enemy addition = new Enemy('<', 600, 50, 20, 50, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
+
+            if (_tally >= 3000)
+            {
+                _tally = 0;
+
+                if(rng.Next(1, 5) == 4)
+                    addition = new Enemy('<', 700, 200, 20, 50, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
+
+                else if (rng.Next(1, 5) == 3)
+
+                    addition = new Enemy('<', 600, 100, 20, 30, "Enemy", _scenes[_currentSceneIndex], _player, Color.PURPLE);
+               else if (rng.Next(1, 5) == 2)
+
+                    addition = new Enemy('<', 500, 400, 20, 30, "Enemy", _scenes[_currentSceneIndex], _player, Color.GREEN);
+                    _scenes[_currentSceneIndex].AddActor(addition);
+                
+            }
+                
+                _tally++;
+
+
             
             //if (!wampus.Alive)
             //{ 

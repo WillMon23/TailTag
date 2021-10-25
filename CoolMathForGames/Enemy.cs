@@ -60,7 +60,7 @@ namespace TailTag
 
             Volocity = _target.Posistion - Posistion;
 
-            Posistion += Volocity.Normalzed * 5 * deltaTime;
+            Posistion += Volocity.Normalzed * 10 * deltaTime;
 
             //Posistion += Volocity.Normalzed * Speed * deltaTime;
             if (GetTargetInSight())
@@ -78,11 +78,9 @@ namespace TailTag
         }
         public override void OnCollision(Actor actor)
         {
-            if (actor.Icon.Symbol == '.')
-            {
-                
-                
-            }
+            if (actor.Name == "PlayerBullet")
+                this.Icon = new Icon { Symbol = '\0' };
+            
         }
 
         /// <summary>
@@ -109,17 +107,17 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(-1, 0),_currentScene);
+            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(-1, 0),_currentScene, "EnemyBullet");
 
 
             if (chance == 1)
-                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3), 10, new Vector2(-1, 0), _currentScene);
+                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3), 20, new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             else if (chance == 2)
-                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4), 10, new Vector2(-1, 0), _currentScene);
+                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4), 25, new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             else if (chance >= 3)
-                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5), 10, new Vector2(-1, 0), _currentScene);
+                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5), 25, new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
            _currentScene.AddActor(shot);
         }

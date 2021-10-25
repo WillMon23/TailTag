@@ -6,9 +6,9 @@ using System.Diagnostics;
 
 namespace TailTag
 {
-    class SceneManager : Actor
+    class SceneManager
     {
-        public override void Start()
+        public void Start()
         {
             //Creats a window  using raylib
             Raylib.InitWindow(800, 450, "Math For Games");
@@ -32,7 +32,17 @@ namespace TailTag
 
             Enemy wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus3);
-            base.Start();
         }
+
+        public void Update()
+        {
+
+        }
+
+
+
+
+
+
     }
 }

@@ -17,7 +17,7 @@ namespace TailTag
 
         private float _lineOfSightRange = 200f;
 
-        private bool _alive = false;
+        private bool _alive = true;
 
         Scene _currentScene;
 
@@ -79,7 +79,10 @@ namespace TailTag
         public override void OnCollision(Actor actor)
         {
             if (actor.Icon.Symbol == '.')
-                _alive = true;
+            {
+                
+                
+            }
         }
 
         /// <summary>

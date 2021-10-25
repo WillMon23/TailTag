@@ -129,11 +129,15 @@ namespace TailTag
             _scenes[_currentSceneIndex].Update(deltTime);
             _scenes[_currentSceneIndex].UpdateUI(deltTime);
 
-            //if (!wampus.Alive)
-            //    _scenes[_currentSceneIndex].RemoveActor(wampus);
-
+            
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
+            
+            //if (!wampus.Alive)
+            //{ 
+            //    if(_scenes[_currentSceneIndex].RemoveActor(wampus))
+            //        wampus.End();
+            //}
         }
 
         /// <summary>

@@ -15,7 +15,9 @@ namespace TailTag
 
         private Scene _currentScene;
 
-        private bool _alive = false;
+        private bool _alive = true;
+
+        float _tally;
 
 
         public float Speed { get { return _speed; } } 
@@ -36,6 +38,7 @@ namespace TailTag
 
         public override void Start()
         {
+            _tally = 0f; 
             base.Start();
             
         }
@@ -45,6 +48,17 @@ namespace TailTag
             float bulletSpeed = Speed * 2;
 
             Posistion +=  Volocity * Speed * deltaTime;
+
+            if (!_alive)
+                _currentScene.RemoveActor(this);
+
+            if (_tally >= 2000)
+            {
+                _currentScene.RemoveActor(this);
+                _tally = 0;
+            }
+            _tally++;
+
         }
 
         public override void OnCollision(Actor actor)

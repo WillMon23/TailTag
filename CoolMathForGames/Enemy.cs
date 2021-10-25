@@ -38,7 +38,7 @@ namespace TailTag
         /// <param name="y">y cooridinet position</param>
         /// <param name="name"> classification</param>
         /// <param name="color">There Color</param>
-        public Enemy(char icon, float x, float y, float speed, float collision, string name, Scene currentScene, Actor target, Color color) : base(icon, x, y, color, collision, name)
+        public Enemy(char icon, float x, float y, float speed, string name, Scene currentScene, Actor target, Color color) : base(icon, x, y, color, name)
         {
             _speed = speed;
             _target = target;
@@ -79,8 +79,9 @@ namespace TailTag
         public override void OnCollision(Actor actor)
         {
             if (actor.Name == "PlayerBullet")
-                this.Icon = new Icon { Symbol = '\0' };
-            
+            { 
+                //_alive = false;
+            }
         }
 
         /// <summary>
@@ -107,17 +108,17 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(-1, 0),_currentScene, "EnemyBullet");
+            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), new Vector2(-1, 0),_currentScene, "EnemyBullet");
 
 
             if (chance == 1)
-                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3), 20, new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             else if (chance == 2)
-                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4), 25, new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             else if (chance >= 3)
-                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5), 25, new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
            _currentScene.AddActor(shot);
         }
@@ -126,12 +127,6 @@ namespace TailTag
         {
 
         }
-
-        private void ShotPlayer(float deltaTime)
-        {
-            
-        }
-
 
     }
 }

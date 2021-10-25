@@ -38,9 +38,13 @@ namespace TailTag
 
                 _actors[i].Update(deltaTime);
 
+
                 //Checks for collision
                 for (int j = 0; j < _actors.Length; j++)
                 {
+                    if (i > j)
+                        continue;
+
                     if (_actors[i].CheckForColision(_actors[j]) && j != i)
                         _actors[i].OnCollision(_actors[j]);
                 }

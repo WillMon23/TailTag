@@ -19,18 +19,18 @@ namespace TailTag
             Scene scene = new Scene();
 
 
-            Player player = new Player('>', 30, 225, 500, Color.PINK, 30, scene, "Player");
+            Player player = new Player('>', 30, 225, 50, Color.PINK, scene, "Player");
             scene.AddActor(player);
 
 
-            Enemy wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, player, Color.BLUE);
+            Enemy wampus = new Enemy('<', 800, 100, 20,  "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus);
 
 
-            Enemy wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, player, Color.BLUE);
+            Enemy wampus2 = new Enemy('<', 800, 300, 20, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus2);
 
-            Enemy wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, player, Color.BLUE);
+            Enemy wampus3 = new Enemy('<', 800, 200, 20, "Enemy", scene, player, Color.BLUE);
             scene.AddActor(wampus3);
         }
 

@@ -29,13 +29,14 @@ namespace TailTag
 
         public bool Alive {  get { return _alive; } }
 
-        public Player(char icon, float x, float y, float speed, Color color, float collision, Scene currentScne, string name = "Player") 
-            :base( icon,  x,  y,color,collision,  name = "PLayer"  )
+        public Player(char icon, float x, float y, float speed, Color color, Scene currentScne, string name = "Player") 
+            :base( icon,  x,  y,color,  name = "Player"  )
         {
             _speed = speed;
             _currentScene = currentScne;
             _tally = 0;
             _health = 100;
+            _lives = 3;
 
         }
 
@@ -73,8 +74,9 @@ namespace TailTag
         public override void OnCollision(Actor actor)
         {
             if (actor.Name == "EnemyBullet")
-                _health -= 10;
-
+            { 
+                //_alive = false;
+            }
         }
 
 
@@ -84,16 +86,16 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet pShot = new Bullet('.', Posistion , Color.GREEN, (Speed * 2), 10, new Vector2(1,0), _currentScene, "PlayerBullet");
+            Bullet pShot = new Bullet('.', Posistion , Color.GREEN, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet");
 
                 if (chance == 1)
-                    pShot = new Bullet('.', Posistion, Color.RED, (Speed * 2), 10, new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet('.', Posistion, Color.RED, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
 
                 else if (chance == 2)
-                    pShot = new Bullet('.', Posistion, Color.BLUE, (Speed * 2), 10, new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet('.', Posistion, Color.BLUE, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet");
 
                 else if (chance >= 3)
-                    pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), 10, new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
             
 
 

@@ -79,22 +79,27 @@ namespace TailTag
            
 
 
-            _player = new Player('>', 30, 225, 500, Color.PINK, 30, scene, "Player");
+            _player = new Player('>', 30, 225, 500, Color.PINK, scene, "Player");
             scene.AddActor(_player);
+            CircleCollider playerCircleCollider = new CircleCollider(20, _player);
+            _player.Collider = playerCircleCollider;
 
-            UIText healthText = new UIText(30, 3, "Health", Color.BLUE, 200, 100, 50);
+            UIText healthText = new UIText(30, 3, "Health", Color.BLUE, 200, 100, 10);
             UIText livesText = new UIText(50, 3, "Lives", Color.RED, 10, 10,50);
             PlayerHud playerHud = new PlayerHud(_player, healthText, livesText);
 
 
-            _wampus = new Enemy('<', 800, 100, 20, 50, "Enemy", scene, _player, Color.BLUE);
+            _wampus = new Enemy('<', 800, 100, 20, "Enemy", scene, _player, Color.BLUE);
             scene.AddActor(_wampus);
+            AABBCollider wampusBoxCollider = new AABBCollider(20, 20, _wampus);
+            _wampus.Collider = wampusBoxCollider;
 
 
-            _wampus2 = new Enemy('<', 800, 300, 20, 30, "Enemy", scene, _player, Color.BLUE);
+
+            _wampus2 = new Enemy('<', 800, 300, 20, "Enemy", scene, _player, Color.BLUE);
             scene.AddActor(_wampus2);
 
-            _wampus3 = new Enemy('<', 800, 200, 20, 30, "Enemy", scene, _player, Color.BLUE);
+            _wampus3 = new Enemy('<', 800, 200, 20, "Enemy", scene, _player, Color.BLUE);
             scene.AddActor(_wampus3);
 
             
@@ -134,40 +139,42 @@ namespace TailTag
             Random rng = new Random();
 
             _scenes[_currentSceneIndex].Update(deltTime);
-            _scenes[_currentSceneIndex].UpdateUI(deltTime);
+            _scenes[_currentSceneIndex].UpdateUI(deltTime); 
+            
+            if (!_wampus.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_wampus);
+            
 
             
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
 
-            Enemy addition = new Enemy('<', 600, 50, 20, 50, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
+            Enemy addition = new Enemy('<', 600, 50, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
 
             if (_tally >= 3000)
             {
                 _tally = 0;
 
                 if(rng.Next(1, 5) == 4)
-                    addition = new Enemy('<', 700, 200, 20, 50, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
+                    addition = new Enemy('<', 700, 200, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
 
                 else if (rng.Next(1, 5) == 3)
 
-                    addition = new Enemy('<', 600, 100, 20, 30, "Enemy", _scenes[_currentSceneIndex], _player, Color.PURPLE);
+                    addition = new Enemy('<', 600, 100, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.PURPLE);
                else if (rng.Next(1, 5) == 2)
 
-                    addition = new Enemy('<', 500, 400, 20, 30, "Enemy", _scenes[_currentSceneIndex], _player, Color.GREEN);
+                    addition = new Enemy('<', 500, 400, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.GREEN);
                     _scenes[_currentSceneIndex].AddActor(addition);
                 
             }
-                
-                _tally++;
+            _tally++;
 
-
-            
-            //if (!wampus.Alive)
-            //{ 
-            //    if(_scenes[_currentSceneIndex].RemoveActor(wampus))
-            //        wampus.End();
-            //}
+            if (!_wampus.Alive)
+            { 
+                 //if (_scenes[_currentSceneIndex].RemoveActor(_wampus))
+             //_wampus.End();
+            }
+           
         }
 
         /// <summary>

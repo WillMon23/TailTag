@@ -18,7 +18,7 @@ namespace TailTag
         private Vector2 _position;
         private bool _started;
         private Vector2 _froward = new Vector2(1,0);
-        private float _collisionRadius;
+        private Collider _collider;
 
         /// <summary>
         /// True if the start function has been called for this actor
@@ -33,23 +33,23 @@ namespace TailTag
 
         public Vector2 Forward { get { return _froward; } set { _froward = value; } }
 
-        public float CollisionRadius { get { return _collisionRadius; } set { _collisionRadius = value; } }
+        public Collider Collider { get { return _collider; } set { _collider = value; } }
 
         public Actor() 
         {
           
         }
 
-        public Actor(char icon, Vector2 position, Color color, float collision, string name = "Actor")
+        public Actor(char icon, Vector2 position, Color color, string name = "Actor")
         {
             _icon = new Icon { Symbol = icon, Color = color }; 
             _name = name;
             _position = position;
-            _collisionRadius = collision;
+
         }
 
-        public Actor(char icon, float x, float y, Color color,float collision, string name = "Actor") :
-            this(icon, new Vector2 { X = x, Y = y }, color, collision, name){ }
+        public Actor(char icon, float x, float y, Color color, string name = "Actor") :
+            this(icon, new Vector2 { X = x, Y = y }, color, name){ }
 
         public virtual void Start()
         {
@@ -63,7 +63,7 @@ namespace TailTag
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, (int)CollisionRadius  , Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 20  , Icon.Color);
             //Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius , Color.LIME);
         }
 
@@ -74,14 +74,14 @@ namespace TailTag
 
         public virtual void OnCollision( Actor actor)
         {
-            this.End();
+           
         }
 
         public virtual bool CheckForColision(Actor other)
         {
-            float combinedRadii = other.CollisionRadius + CollisionRadius;
-            float distance = Vector2.Distance(other.Posistion, Posistion);
-            return distance <= combinedRadii;
+            if (Collider == null || other == null)
+                return false;
+            return Collider.CheckCollision(other);
         }
 
        

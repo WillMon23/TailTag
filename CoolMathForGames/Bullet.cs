@@ -26,7 +26,7 @@ namespace TailTag
 
         public bool Alive { get { return _alive; } }
 
-        public Bullet(Char icon, Vector2 postion, Color color, float speed, float collision, Vector2 volocoty, Scene currentScene, string name = "Bullet") : base(icon, postion, color, collision, name)
+        public Bullet(Char icon, Vector2 postion, Color color, float speed, Vector2 volocoty, Scene currentScene, string name = "Bullet") : base(icon, postion, color, name)
         {
             _currentScene = currentScene;
             _speed = speed;

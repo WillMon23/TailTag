@@ -99,10 +99,16 @@ namespace TailTag
             _wampus2 = new Enemy('<', 800, 300, 20, "Enemy", scene, _player, Color.BLUE);
             scene.AddActor(_wampus2);
 
+            AABBCollider wampus2BoxCollider = new AABBCollider(20, 20, _wampus2);
+            _wampus.Collider = wampus2BoxCollider;
+
             _wampus3 = new Enemy('<', 800, 200, 20, "Enemy", scene, _player, Color.BLUE);
             scene.AddActor(_wampus3);
 
-            
+            AABBCollider wampus3BoxCollider = new AABBCollider(20, 20, _wampus3);
+            _wampus.Collider = wampus3BoxCollider;
+
+
 
 
             scene.AddUIElement(playerHud);
@@ -171,8 +177,8 @@ namespace TailTag
 
             if (!_wampus.Alive)
             { 
-                 //if (_scenes[_currentSceneIndex].RemoveActor(_wampus))
-             //_wampus.End();
+                 if (_scenes[_currentSceneIndex].RemoveActor(_wampus))
+             _wampus.End();
             }
            
         }

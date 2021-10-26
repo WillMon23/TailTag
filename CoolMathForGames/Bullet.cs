@@ -49,8 +49,8 @@ namespace TailTag
 
             Posistion +=  Volocity * Speed * deltaTime;
 
-            if (!_alive)
-                _currentScene.RemoveActor(this);
+            //if (!_alive)
+            //    _currentScene.RemoveActor(this);
 
             if (_tally >= 2000)
             {

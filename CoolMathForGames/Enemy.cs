@@ -120,9 +120,18 @@ namespace TailTag
             else if (chance >= 3)
                  shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
+            CircleCollider shotCircleCollider = new CircleCollider(10, shot);
+            shot.Collider = shotCircleCollider;
+
+
            _currentScene.AddActor(shot);
         }
-        
+        public override void Draw()
+        {
+            base.Draw();
+            Collider.Draw();
+        }
+
         private void Fallow()
         {
 

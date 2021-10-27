@@ -55,10 +55,18 @@ namespace TailTag
             if (_tally >= 2000)
             {
                 this.Icon = new Icon { Symbol = '\0' };
+
+                //_currentScene.RemoveActor(this);
+                //this.End();
                 _tally = 0;
             }
             _tally++;
 
+        }
+        public override void Draw()
+        {
+            base.Draw();
+            Collider.Draw();
         }
 
         public override void OnCollision(Actor actor)

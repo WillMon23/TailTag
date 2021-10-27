@@ -78,6 +78,11 @@ namespace TailTag
                 //_alive = false;
             }
         }
+        public override void Draw()
+        {
+            base.Draw();
+            Collider.Draw();
+        }
 
 
         private void AddBullet()
@@ -96,9 +101,9 @@ namespace TailTag
 
                 else if (chance >= 3)
                     pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
-            
 
-
+            CircleCollider pShotCircleCollider = new CircleCollider(10, pShot);
+            pShot.Collider = pShotCircleCollider;
 
             _currentScene.AddActor(pShot);
         }

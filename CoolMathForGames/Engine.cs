@@ -12,7 +12,7 @@ namespace TailTag
     class Engine
     {
         private static bool _applicationShouldClose = false;
-        private static int _currentSceneIndex;
+        private static int _currentSceneIndex = 0;
         private Scene[] _scenes = new Scene[0];
         private static Icon[,] _buffer;
         Stopwatch _stopwatch = new Stopwatch();
@@ -21,11 +21,11 @@ namespace TailTag
 
         private Player _player;
 
-        private Enemy _wampus;
+        private Enemy _enemyOne;
 
-        private Enemy _wampus2;
+        private Enemy _enemyTwo;
 
-        private Enemy _wampus3;
+        private Enemy _enemyThree;
 
         /// <summary>
         /// Called to begin the application 
@@ -64,8 +64,6 @@ namespace TailTag
         /// </summary>
         private void Start()
         {
-            
-            
 
             //Creats a window  using raylib
             Raylib.InitWindow(800, 450, "Math For Games");
@@ -76,42 +74,38 @@ namespace TailTag
 
             //Initulises the characters 
             Scene scene = new Scene();
-           
-
 
             _player = new Player('>', 30, 225, 500, Color.PINK, scene, "Player");
-            scene.AddActor(_player);
+
+            _enemyOne = new Enemy('<', 800, 100, 20, "Enemy", scene, _player, Color.BLUE);
+
+            _enemyTwo = new Enemy('<', 800, 300, 20, "Enemy", scene, _player, Color.BLUE);
+
+            _enemyThree = new Enemy('<', 800, 200, 20, "Enemy", scene, _player, Color.BLUE);
+
             CircleCollider playerCircleCollider = new CircleCollider(20, _player);
             _player.Collider = playerCircleCollider;
 
             UIText healthText = new UIText(30, 3, "Health", Color.BLUE, 200, 100, 10);
-            UIText livesText = new UIText(50, 3, "Lives", Color.RED, 10, 10,50);
+            UIText livesText = new UIText(50, 3, "Lives", Color.RED, 10, 10, 50);
             PlayerHud playerHud = new PlayerHud(_player, healthText, livesText);
+            scene.AddActor(_player);
 
+            scene.AddActor(_enemyOne);
+            AABBCollider EnemyOnesBoxCollider = new AABBCollider(20, 20, _enemyOne);
+            _enemyOne.Collider = EnemyOnesBoxCollider;
 
-            _wampus = new Enemy('<', 800, 100, 20, "Enemy", scene, _player, Color.BLUE);
-            scene.AddActor(_wampus);
-            AABBCollider wampusBoxCollider = new AABBCollider(20, 20, _wampus);
-            _wampus.Collider = wampusBoxCollider;
+            scene.AddActor(_enemyTwo);
+            AABBCollider enemyTwoBoxCollider = new AABBCollider(20, 20, _enemyTwo);
+            _enemyTwo.Collider = enemyTwoBoxCollider;
 
-
-
-            _wampus2 = new Enemy('<', 800, 300, 20, "Enemy", scene, _player, Color.BLUE);
-            scene.AddActor(_wampus2);
-
-            AABBCollider wampus2BoxCollider = new AABBCollider(20, 20, _wampus2);
-            _wampus.Collider = wampus2BoxCollider;
-
-            _wampus3 = new Enemy('<', 800, 200, 20, "Enemy", scene, _player, Color.BLUE);
-            scene.AddActor(_wampus3);
-
-            AABBCollider wampus3BoxCollider = new AABBCollider(20, 20, _wampus3);
-            _wampus.Collider = wampus3BoxCollider;
-
-
-
+            scene.AddActor(_enemyThree);
+            AABBCollider enemyThreeBoxCollider = new AABBCollider(20, 20, _enemyThree);
+            _enemyThree.Collider = enemyThreeBoxCollider;
 
             scene.AddUIElement(playerHud);
+
+
             _currentSceneIndex = AddScene(scene);
         }
 
@@ -147,8 +141,8 @@ namespace TailTag
             _scenes[_currentSceneIndex].Update(deltTime);
             _scenes[_currentSceneIndex].UpdateUI(deltTime); 
             
-            if (!_wampus.Alive)
-                _scenes[_currentSceneIndex].RemoveActor(_wampus);
+            if (!_enemyThree.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
             
 
             
@@ -161,25 +155,22 @@ namespace TailTag
             {
                 _tally = 0;
 
-                if(rng.Next(1, 5) == 4)
+                if (rng.Next(1, 5) == 4)
                     addition = new Enemy('<', 700, 200, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
 
                 else if (rng.Next(1, 5) == 3)
-
                     addition = new Enemy('<', 600, 100, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.PURPLE);
-               else if (rng.Next(1, 5) == 2)
 
+                else if (rng.Next(1, 5) == 2)
                     addition = new Enemy('<', 500, 400, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.GREEN);
-                    _scenes[_currentSceneIndex].AddActor(addition);
-                
+
+                _scenes[_currentSceneIndex].AddActor(addition);
+
+                AABBCollider additionThreeBoxCollider = new AABBCollider(20, 20, addition);
+                addition.Collider = additionThreeBoxCollider;
+
             }
             _tally++;
-
-            if (!_wampus.Alive)
-            { 
-                 if (_scenes[_currentSceneIndex].RemoveActor(_wampus))
-             _wampus.End();
-            }
            
         }
 

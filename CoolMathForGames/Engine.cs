@@ -77,11 +77,11 @@ namespace TailTag
 
             _player = new Player('>', 30, 225, 500, Color.GREEN, scene, "Player");
 
-            _enemyOne = new Enemy('<', 800, 100, 15, "Enemy", scene, _player, Color.BLUE);
+            _enemyOne = new Enemy('<', 800, 100, 30, "Enemy", scene, _player, Color.BLUE);
 
-            _enemyTwo = new Enemy('<', 800, 300, 15, "Enemy", scene, _player, Color.BLUE);
+            _enemyTwo = new Enemy('<', 800, 300, 30, "Enemy", scene, _player, Color.BLUE);
 
-            _enemyThree = new Enemy('<', 800, 200, 15, "Enemy", scene, _player, Color.BLUE);
+            _enemyThree = new Enemy('<', 800, 200, 30, "Enemy", scene, _player, Color.BLUE);
 
             CircleCollider playerCircleCollider = new CircleCollider(20, _player);
             _player.Collider = playerCircleCollider;
@@ -92,15 +92,15 @@ namespace TailTag
             scene.AddActor(_player);
 
             scene.AddActor(_enemyOne);
-            AABBCollider EnemyOnesBoxCollider = new AABBCollider(30, 20, _enemyOne);
+            AABBCollider EnemyOnesBoxCollider = new AABBCollider(40, 40, _enemyOne);
             _enemyOne.Collider = EnemyOnesBoxCollider;
 
             scene.AddActor(_enemyTwo);
-            AABBCollider enemyTwoBoxCollider = new AABBCollider(30, 20, _enemyTwo);
+            AABBCollider enemyTwoBoxCollider = new AABBCollider(40, 40, _enemyTwo);
             _enemyTwo.Collider = enemyTwoBoxCollider;
 
             scene.AddActor(_enemyThree);
-            AABBCollider enemyThreeBoxCollider = new AABBCollider(30, 20, _enemyThree);
+            AABBCollider enemyThreeBoxCollider = new AABBCollider(40, 40, _enemyThree);
             _enemyThree.Collider = enemyThreeBoxCollider;
 
             scene.AddUIElement(playerHud);
@@ -151,7 +151,7 @@ namespace TailTag
 
             Enemy addition = new Enemy('<', 600, 50, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
 
-            if (_tally >= 3000)
+            if (_tally >= 2000)
             {
                 _tally = 0;
 
@@ -166,7 +166,7 @@ namespace TailTag
 
                 _scenes[_currentSceneIndex].AddActor(addition);
 
-                AABBCollider additionThreeBoxCollider = new AABBCollider(20, 20, addition);
+                AABBCollider additionThreeBoxCollider = new AABBCollider(40, 40, addition);
                 addition.Collider = additionThreeBoxCollider;
 
             }

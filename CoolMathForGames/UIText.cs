@@ -37,7 +37,7 @@ namespace TailTag
 
         public override void Draw()
         {
-            Rectangle textBox = new Rectangle(Posistion.X, Posistion.Y, Width, Height);
+            Rectangle textBox = new Rectangle(Position.X, Position.Y, Width, Height);
             Raylib.DrawTextRec(Font, Text, textBox, FontSize, 1, true, Icon.Color);
         }
            

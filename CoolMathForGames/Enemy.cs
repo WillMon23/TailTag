@@ -15,7 +15,7 @@ namespace TailTag
         
         private Actor _target;
 
-        private float _lineOfSightRange = 200f;
+        private float _lineOfSightRange = 300f;
 
         private bool _alive = true;
 
@@ -58,15 +58,15 @@ namespace TailTag
         public override void Update(float deltaTime)
         {
 
-            Volocity = _target.Posistion - Posistion;
+            Volocity = _target.Position - Position;
 
-            Posistion += Volocity.Normalzed * 10 * deltaTime;
+            Position += Volocity.Normalzed * 10 * deltaTime;
 
             //Posistion += Volocity.Normalzed * Speed * deltaTime;
             if (GetTargetInSight())
             {
                 
-                Posistion += Volocity.Normalzed * Speed * deltaTime;
+                Position += Volocity.Normalzed * Speed * deltaTime;
                 if (_tally >= 1000)
                 {
                     AddBullet();
@@ -90,11 +90,11 @@ namespace TailTag
         /// <returns></returns>
         private bool GetTargetInSight()
         {
-            Vector2 directionTarget = (_target.Posistion - Posistion).Normalzed;
+            Vector2 directionTarget = (_target.Position - Position).Normalzed;
 
-            float distance = Vector2.Distance(_target.Posistion, Posistion);
+            float distance = Vector2.Distance(_target.Position, Position);
 
-            float cosTarget = distance / Posistion.Magnitude;
+            float cosTarget = distance / Position.Magnitude;
 
             return cosTarget < _lineOfSightRange && (distance < _lineOfSightRange) && Vector2.DotProduct(directionTarget, Forward) < 0;
         }
@@ -108,17 +108,17 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2), new Vector2(-1, 0),_currentScene, "EnemyBullet");
+            Bullet shot = new Bullet('.', Position, Color.GREEN, (Speed * 2), new Vector2(-1, 0),_currentScene, "EnemyBullet");
 
 
             if (chance == 1)
-                shot = new Bullet('.', Posistion, Color.RED, (Speed * 3),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                shot = new Bullet('.', Position, Color.RED, (Speed * 3),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             else if (chance == 2)
-                shot = new Bullet('.', Posistion, Color.BLUE, (Speed * 4),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                shot = new Bullet('.', Position, Color.BLUE, (Speed * 4),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             else if (chance >= 3)
-                 shot = new Bullet('.', Posistion, Color.GREEN, (Speed * 5),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                 shot = new Bullet('.', Position, Color.GREEN, (Speed * 5),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
 
             CircleCollider shotCircleCollider = new CircleCollider(10, shot);
             shot.Collider = shotCircleCollider;

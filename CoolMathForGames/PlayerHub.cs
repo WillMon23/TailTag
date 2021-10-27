@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Raylib_cs;
 
 namespace TailTag
 {
@@ -29,6 +30,7 @@ namespace TailTag
         {
             _health.Text = "Health: " + _player.Health.ToString();
             _lives.Text = "Lives: " + _player.Lives.ToString();
+                
         }
 
         public override void Draw()

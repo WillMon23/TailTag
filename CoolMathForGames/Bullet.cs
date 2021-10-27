@@ -47,17 +47,17 @@ namespace TailTag
         {
             float bulletSpeed = Speed * 2;
 
-            Posistion +=  Volocity * Speed * deltaTime;
+            Position +=  Volocity * Speed * deltaTime;
 
             //if (!_alive)
             //    _currentScene.RemoveActor(this);
 
-            if (_tally >= 2000)
+            if (_tally >= 10000)
             {
                 this.Icon = new Icon { Symbol = '\0' };
 
                 _currentScene.RemoveActor(this);
-                this.End();
+                //this.End();
                 _tally = 0;
             }
             _tally++;
@@ -71,9 +71,9 @@ namespace TailTag
 
         public override void OnCollision(Actor actor)
         {
-            if(actor.Icon.Symbol == '<')
+            if(actor.Name == "Player")
             {
-                
+                _currentScene.RemoveActor(this);
             }
         }
     }

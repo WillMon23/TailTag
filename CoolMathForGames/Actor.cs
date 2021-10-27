@@ -25,7 +25,7 @@ namespace TailTag
         /// </summary>
         public bool Started { get { return _started; } }
 
-        public Vector2 Posistion { get { return _position; } set { _position = value; } }
+        public Vector2 Position { get { return _position; } set { _position = value; } }
         
         public Icon Icon { get { return _icon; } set { _icon = value; } }
 
@@ -58,12 +58,12 @@ namespace TailTag
 
         public virtual void Update(float deltaTime)
         {
-            Console.WriteLine(Name + ": " + Posistion.X + " , " + Posistion.Y);
+            Console.WriteLine(Name + ": " + Position.X + " , " + Position.Y);
         }
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Posistion.X, (int)Posistion.Y, 20  , Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X, (int)Position.Y, 20  , Icon.Color);
             //Raylib.DrawCircleLines((int)Posistion.X, (int)Posistion.Y, CollisionRadius , Color.LIME);
         }
 

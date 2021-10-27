@@ -65,7 +65,7 @@ namespace TailTag
 
             Volocity =  moveDirecton.Normalzed * Speed * deltaTime ;
 
-            Posistion += Volocity.Normalzed;
+            Position += Volocity.Normalzed;
 
             base.Update(deltaTime);
 
@@ -75,7 +75,14 @@ namespace TailTag
         {
             if (actor.Name == "EnemyBullet")
             {
+                _currentScene.RemoveActor(actor);
                 _health -= 10f;
+            }
+            if (actor.Name == "Enemy")
+            {
+                _currentScene.RemoveActor(actor);
+                _health -= 10f;
+
             }
         }
         public override void Draw()
@@ -91,16 +98,16 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet pShot = new Bullet('.', Posistion , Color.GREEN, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet");
+            Bullet pShot = new Bullet('.', Position , Color.GREEN, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet");
 
                 if (chance == 1)
-                    pShot = new Bullet('.', Posistion, Color.RED, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet('.', Position, Color.RED, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
 
                 else if (chance == 2)
-                    pShot = new Bullet('.', Posistion, Color.BLUE, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet('.', Position, Color.BLUE, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet");
 
                 else if (chance >= 3)
-                    pShot = new Bullet('.', Posistion, Color.GREEN, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet('.', Position, Color.GREEN, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
 
             CircleCollider pShotCircleCollider = new CircleCollider(10, pShot);
             pShot.Collider = pShotCircleCollider;

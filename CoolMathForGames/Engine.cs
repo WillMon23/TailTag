@@ -75,13 +75,13 @@ namespace TailTag
             //Initulises the characters 
             Scene scene = new Scene();
 
-            _player = new Player('>', 30, 225, 500, Color.PINK, scene, "Player");
+            _player = new Player('>', 30, 225, 500, Color.GREEN, scene, "Player");
 
-            _enemyOne = new Enemy('<', 800, 100, 20, "Enemy", scene, _player, Color.BLUE);
+            _enemyOne = new Enemy('<', 800, 100, 15, "Enemy", scene, _player, Color.BLUE);
 
-            _enemyTwo = new Enemy('<', 800, 300, 20, "Enemy", scene, _player, Color.BLUE);
+            _enemyTwo = new Enemy('<', 800, 300, 15, "Enemy", scene, _player, Color.BLUE);
 
-            _enemyThree = new Enemy('<', 800, 200, 20, "Enemy", scene, _player, Color.BLUE);
+            _enemyThree = new Enemy('<', 800, 200, 15, "Enemy", scene, _player, Color.BLUE);
 
             CircleCollider playerCircleCollider = new CircleCollider(20, _player);
             _player.Collider = playerCircleCollider;
@@ -92,15 +92,15 @@ namespace TailTag
             scene.AddActor(_player);
 
             scene.AddActor(_enemyOne);
-            AABBCollider EnemyOnesBoxCollider = new AABBCollider(20, 20, _enemyOne);
+            AABBCollider EnemyOnesBoxCollider = new AABBCollider(30, 20, _enemyOne);
             _enemyOne.Collider = EnemyOnesBoxCollider;
 
             scene.AddActor(_enemyTwo);
-            AABBCollider enemyTwoBoxCollider = new AABBCollider(20, 20, _enemyTwo);
+            AABBCollider enemyTwoBoxCollider = new AABBCollider(30, 20, _enemyTwo);
             _enemyTwo.Collider = enemyTwoBoxCollider;
 
             scene.AddActor(_enemyThree);
-            AABBCollider enemyThreeBoxCollider = new AABBCollider(20, 20, _enemyThree);
+            AABBCollider enemyThreeBoxCollider = new AABBCollider(30, 20, _enemyThree);
             _enemyThree.Collider = enemyThreeBoxCollider;
 
             scene.AddUIElement(playerHud);

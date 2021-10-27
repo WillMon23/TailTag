@@ -136,7 +136,7 @@ namespace TailTag
             int j = 0;
 
             //Copy's all the actors from the old array to the new array that we don't want to remove 
-            for (int i = 0; i < tempArray.Length; i++)
+            for (int i = 0; i < _actors.Length; i++)
             {
                 // If the actor does not equal to the actor we want 
                 if (_actors[i] != actor)

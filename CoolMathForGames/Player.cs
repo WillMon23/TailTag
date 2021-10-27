@@ -74,8 +74,8 @@ namespace TailTag
         public override void OnCollision(Actor actor)
         {
             if (actor.Name == "EnemyBullet")
-            { 
-                //_alive = false;
+            {
+                _health -= 10f;
             }
         }
         public override void Draw()

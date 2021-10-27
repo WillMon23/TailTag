@@ -56,8 +56,8 @@ namespace TailTag
             {
                 this.Icon = new Icon { Symbol = '\0' };
 
-                //_currentScene.RemoveActor(this);
-                //this.End();
+                _currentScene.RemoveActor(this);
+                this.End();
                 _tally = 0;
             }
             _tally++;

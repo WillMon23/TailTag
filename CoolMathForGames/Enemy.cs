@@ -38,7 +38,7 @@ namespace TailTag
         /// <param name="y">y cooridinet position</param>
         /// <param name="name"> classification</param>
         /// <param name="color">There Color</param>
-        public Enemy(char icon, float x, float y, float speed, string name, Scene currentScene, Actor target, Color color) : base(icon, x, y, color, name)
+        public Enemy( float x, float y, float speed, string name, Scene currentScene, Actor target, string path = "") : base( x, y, name, path)
         {
             _speed = speed;
             _target = target;
@@ -67,7 +67,7 @@ namespace TailTag
             {
                 
                 Position += Volocity.Normalzed * Speed * deltaTime;
-                if (_tally >= 1000)
+                if (_tally >= 5000)
                 {
                     AddBullet();
                     _tally = 0;
@@ -108,17 +108,19 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet shot = new Bullet('.', Position, Color.GREEN, (Speed * 2), new Vector2(-1, 0),_currentScene, "EnemyBullet");
+            Bullet shot = new Bullet(Position, (Speed * 2), new Vector2(-1, 0),_currentScene, "EnemyBullet", "Images/bullet.png");
 
 
             if (chance == 1)
-                shot = new Bullet('.', Position, Color.RED, (Speed * 3),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                shot = new Bullet(Position, (Speed * 3),  new Vector2(-1, 0), _currentScene, "EnemyBullet", "Images/bullet.png");
 
             else if (chance == 2)
-                shot = new Bullet('.', Position, Color.BLUE, (Speed * 4),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                shot = new Bullet(Position, (Speed * 4),  new Vector2(-1, 0), _currentScene, "EnemyBullet", "Images/bullet.png");
 
             else if (chance >= 3)
-                 shot = new Bullet('.', Position, Color.GREEN, (Speed * 5),  new Vector2(-1, 0), _currentScene, "EnemyBullet");
+                 shot = new Bullet(Position, (Speed * 5),  new Vector2(-1, 0), _currentScene, "EnemyBullet", "Images/bullet.png");
+
+            shot.SetScale(50, 50);
 
             CircleCollider shotCircleCollider = new CircleCollider(10, shot);
             shot.Collider = shotCircleCollider;

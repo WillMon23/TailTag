@@ -14,7 +14,6 @@ namespace TailTag
         private static bool _applicationShouldClose = false;
         private static int _currentSceneIndex = 0;
         private Scene[] _scenes = new Scene[0];
-        private static Icon[,] _buffer;
         Stopwatch _stopwatch = new Stopwatch();
 
         int _tally = 0;
@@ -75,13 +74,17 @@ namespace TailTag
             //Initulises the characters 
             Scene scene = new Scene();
 
-            _player = new Player('>', 30, 225, 500, Color.GREEN, scene, "Player");
+            _player = new Player( 30, 225, 500, scene, "Player", "Images/player.png");
+            _player.SetScale(100, 50);
 
-            _enemyOne = new Enemy('<', 800, 100, 30, "Enemy", scene, _player, Color.BLUE);
+            _enemyOne = new Enemy(800, 100, 30, "Enemy", scene, _player, "Images/enemy.png");
+            _enemyOne.SetScale(500, 500);
 
-            _enemyTwo = new Enemy('<', 800, 300, 30, "Enemy", scene, _player, Color.BLUE);
+            _enemyTwo = new Enemy( 800, 300, 30, "Enemy", scene, _player, "Images/enemy.png");
+            _enemyTwo.SetScale(50, 50);
 
-            _enemyThree = new Enemy('<', 800, 200, 30, "Enemy", scene, _player, Color.BLUE);
+            _enemyThree = new Enemy( 800, 200, 30, "Enemy", scene, _player, "Images/enemy.png");
+            _enemyThree.SetScale(50, 50);
 
             CircleCollider playerCircleCollider = new CircleCollider(20, _player);
             _player.Collider = playerCircleCollider;
@@ -115,8 +118,6 @@ namespace TailTag
         private void Draw()
         {
             Console.CursorVisible = false;
-            //Clear the stuff that was on the screen in the last frame 
-            _buffer = new Icon[Console.WindowWidth - 1 , Console.WindowHeight - 1];
 
             // Resets the cursor position to the top
             Console.SetCursorPosition(0, 0);
@@ -136,42 +137,17 @@ namespace TailTag
         /// </summary>
         private void Update(float deltTime)
         {
-            Random rng = new Random();
-
             _scenes[_currentSceneIndex].Update(deltTime);
             _scenes[_currentSceneIndex].UpdateUI(deltTime); 
             
             if (!_enemyThree.Alive)
                 _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
             
-
-            
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
 
-            Enemy addition = new Enemy('<', 600, 50, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
-
-            if (_tally >= 2000)
-            {
-                _tally = 0;
-
-                if (rng.Next(1, 5) == 4)
-                    addition = new Enemy('<', 700, 200, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.BLUE);
-
-                else if (rng.Next(1, 5) == 3)
-                    addition = new Enemy('<', 600, 100, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.PURPLE);
-
-                else if (rng.Next(1, 5) == 2)
-                    addition = new Enemy('<', 500, 400, 20, "Enemy", _scenes[_currentSceneIndex], _player, Color.GREEN);
-
-                _scenes[_currentSceneIndex].AddActor(addition);
-
-                AABBCollider additionThreeBoxCollider = new AABBCollider(40, 40, addition);
-                addition.Collider = additionThreeBoxCollider;
-
-            }
-            _tally++;
-           
+            //Creats Enemy Spawn on Update 
+            EnemySpawner();
         }
 
         /// <summary>
@@ -229,6 +205,41 @@ namespace TailTag
         public static void CloseApplication()
         {
             _applicationShouldClose = true;
+        }
+
+        /// <summary>
+        /// Creats EnemySpawn 
+        /// </summary>
+        private void EnemySpawner()
+        {
+            Random rng = new Random();
+
+            Enemy addition = new Enemy( 600, 50, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+            if (_tally >= 2000)
+            {
+                _tally = 0;
+
+                if (rng.Next(1, 5) == 4)
+                    addition = new Enemy( 700, 200, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                else if (rng.Next(1, 5) == 3)
+                    addition = new Enemy( 600, 100, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                else if (rng.Next(1, 5) == 2)
+                    addition = new Enemy( 500, 400, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                addition.SetScale(50, 50);
+
+                _scenes[_currentSceneIndex].AddActor(addition);
+                
+
+                AABBCollider additionThreeBoxCollider = new AABBCollider(40, 40, addition);
+                addition.Collider = additionThreeBoxCollider;
+
+            }
+            _tally++;
+           
         }
     }
 

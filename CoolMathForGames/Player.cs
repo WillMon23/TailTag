@@ -29,8 +29,8 @@ namespace TailTag
 
         public bool Alive {  get { return _alive; } }
 
-        public Player(char icon, float x, float y, float speed, Color color, Scene currentScne, string name = "Player") 
-            :base( icon,  x,  y,color,  name = "Player"  )
+        public Player( float x, float y, float speed, Scene currentScne, string name = "Player", string path = "") 
+            :base( x,  y,  name = "Player", path)
         {
             _speed = speed;
             _currentScene = currentScne;
@@ -81,14 +81,14 @@ namespace TailTag
             if (actor.Name == "Enemy")
             {
                 _currentScene.RemoveActor(actor);
-                _health -= 10f;
+                _health -= 30f;
 
             }
         }
         public override void Draw()
         {
             base.Draw();
-            Collider.Draw();
+            //Collider.Draw();
         }
 
 
@@ -98,16 +98,16 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet pShot = new Bullet('.', Position , Color.GREEN, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet");
+            Bullet pShot = new Bullet(Position, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet");
 
                 if (chance == 1)
-                    pShot = new Bullet('.', Position, Color.RED, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet(Position, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
 
                 else if (chance == 2)
-                    pShot = new Bullet('.', Position, Color.BLUE, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet(Position, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet");
 
                 else if (chance >= 3)
-                    pShot = new Bullet('.', Position, Color.GREEN, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet(Position, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
 
             CircleCollider pShotCircleCollider = new CircleCollider(10, pShot);
             pShot.Collider = pShotCircleCollider;

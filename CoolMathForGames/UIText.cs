@@ -11,8 +11,9 @@ namespace TailTag
         private string _text;
         private int _width;
         private int _height;
-        public int FontSize;
+        public int _fontSize;
         public Font Font;
+        public Color FontColor;
 
         /// <summary>
         /// Text being utalized 
@@ -26,19 +27,20 @@ namespace TailTag
 
 
         public UIText(float x, float y, string name, Color color, int width, int height, int fontSize, string text = "")
-            : base('\0', x, y, color,  name)
+            : base(x, y, name)
         {
             _text = text;
             _width = width;
             _height = height;
             Font = Raylib.LoadFont("resources/fonts/alagard.png");
-            FontSize = fontSize;
+            _fontSize = fontSize;
+            FontColor = Color.GOLD;
         }
 
         public override void Draw()
         {
             Rectangle textBox = new Rectangle(Position.X, Position.Y, Width, Height);
-            Raylib.DrawTextRec(Font, Text, textBox, FontSize, 1, true, Icon.Color);
+            Raylib.DrawTextRec(Font, Text, textBox, _fontSize, 1, true, FontColor);
         }
            
 

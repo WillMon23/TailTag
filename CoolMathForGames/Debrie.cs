@@ -7,7 +7,7 @@ namespace TailTag
 {
     class Debrie : Actor 
     {
-        public Debrie(char icon, float x, float y, Color color, string name) : base( icon,  x,  y,  color, name)
+        public Debrie( float x, float y, Color color, string name, string path = "") : base(  x,  y, name, path)
         {
 
         }

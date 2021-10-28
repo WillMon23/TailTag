@@ -26,7 +26,7 @@ namespace TailTag
 
         public bool Alive { get { return _alive; } }
 
-        public Bullet(Char icon, Vector2 postion, Color color, float speed, Vector2 volocoty, Scene currentScene, string name = "Bullet") : base(icon, postion, color, name)
+        public Bullet(Vector2 postion, float speed, Vector2 volocoty, Scene currentScene, string name = "Bullet", string path = "") : base(postion, name, path)
         {
             _currentScene = currentScene;
             _speed = speed;
@@ -52,10 +52,8 @@ namespace TailTag
             //if (!_alive)
             //    _currentScene.RemoveActor(this);
 
-            if (_tally >= 10000)
+            if (_tally >= 5000)
             {
-                this.Icon = new Icon { Symbol = '\0' };
-
                 _currentScene.RemoveActor(this);
                 //this.End();
                 _tally = 0;

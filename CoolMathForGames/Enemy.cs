@@ -63,7 +63,7 @@ namespace TailTag
             {
                 
                 Position += Volocity.Normalzed * Speed * deltaTime;
-                if (_tally >= .05)
+                if (_tally >= .55)
                 {
                     AddBullet();
                     _tally = 0;

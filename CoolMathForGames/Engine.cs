@@ -204,7 +204,7 @@ namespace TailTag
         }
 
         /// <summary>
-        /// Creats EnemySpawn 
+        /// Creats EnemySpawn To Appear after Sometimes based on time
         /// </summary>
         private void EnemySpawner( float deltaTime)
         {
@@ -212,18 +212,30 @@ namespace TailTag
 
             Enemy addition = new Enemy( 600, 50, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
 
-            if (_tally >= .05f)
+            if (_tally >= .25f)
             {
                 _tally = 0;
 
                 if (rng.Next(1, 5) == 4)
-                    addition = new Enemy( 700, 200, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+                    addition = new Enemy( 800, 100, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
 
                 else if (rng.Next(1, 5) == 3)
-                    addition = new Enemy( 600, 100, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+                    addition = new Enemy( 800, 200, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
 
                 else if (rng.Next(1, 5) == 2)
-                    addition = new Enemy( 500, 400, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+                    addition = new Enemy( 800, 225, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                else if (rng.Next(1, 5) == 3)
+                    addition = new Enemy(800, 250, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                else if (rng.Next(1, 5) == 2)
+                    addition = new Enemy(800, 300, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                else if (rng.Next(1, 5) == 3)
+                    addition = new Enemy(800, 350, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
+
+                else if (rng.Next(1, 5) == 2)
+                    addition = new Enemy(800, 400, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
 
                 addition.SetScale(50, 50);
 

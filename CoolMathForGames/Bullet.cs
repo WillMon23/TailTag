@@ -70,9 +70,16 @@ namespace TailTag
         public override void OnCollision(Actor actor)
         {
             if(actor.Name == "Player")
-            {
                 _currentScene.RemoveActor(this);
-            }
+
+
+            if (actor.Name == "PlayerBullet")
+                _currentScene.RemoveActor(this);
+
+            if (actor.Name == "EnemyBullet")
+                _currentScene.RemoveActor(this);
+
+            
         }
     }
 }

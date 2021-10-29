@@ -87,8 +87,8 @@ namespace TailTag
         }
         public void SetScale(float x, float y)
         {
-            _scaler.M00 = x;
-            _scaler.M11 = y;
+            _transform.M00 = x;   
+            _transform.M11 = y;
         }
 
 

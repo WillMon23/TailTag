@@ -21,7 +21,7 @@ namespace TailTag
 
         Scene _currentScene;
 
-        int _tally;
+        float _tally;
 
         public float Speed { get { return _speed; } set { _speed = value; } }
 
@@ -58,29 +58,26 @@ namespace TailTag
         public override void Update(float deltaTime)
         {
 
-            Volocity = _target.Position - Position;
-
-            Position += Volocity.Normalzed * 10 * deltaTime;
-
-            //Posistion += Volocity.Normalzed * Speed * deltaTime;
+            Fallow(deltaTime);
             if (GetTargetInSight())
             {
                 
                 Position += Volocity.Normalzed * Speed * deltaTime;
-                if (_tally >= 5000)
+                if (_tally >= .05)
                 {
                     AddBullet();
                     _tally = 0;
                 }
             }
-            _tally++;
+            _tally += deltaTime;
 
         }
         public override void OnCollision(Actor actor)
         {
             if (actor.Name == "PlayerBullet")
             { 
-                //_alive = false;
+                _alive = false;
+                _currentScene.RemoveActor(this);
             }
         }
 
@@ -134,9 +131,14 @@ namespace TailTag
             Collider.Draw();
         }
 
-        private void Fallow()
+        /// <summary>
+        /// Fallows Player
+        /// </summary>
+        private void Fallow(float deltaTime)
         {
+            Volocity = _target.Position - Position;
 
+            Position += Volocity.Normalzed * 10 * deltaTime;
         }
 
     }

@@ -11,7 +11,7 @@ namespace TailTag
         private float _speed;
         private Vector2 _volocity;
         private Scene _currentScene;
-        private int _tally;
+        private float _tally;
         private bool _alive = false;
 
         private float _health;
@@ -43,7 +43,7 @@ namespace TailTag
         public override void Update(float deltaTime)
         {
 
-            if (_tally >= 1000)
+            if (_tally >= .5f)
             {
                 if ((Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)))
                 {
@@ -51,7 +51,7 @@ namespace TailTag
                     _tally = 0;
                 }
             }
-            _tally++;
+             _tally += deltaTime; ;
 
 
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A)) 
@@ -98,16 +98,17 @@ namespace TailTag
 
             int chance = rng.Next(1, 5);
 
-            Bullet pShot = new Bullet(Position, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet");
+            Bullet pShot = new Bullet(Position, (Speed * 2), new Vector2(1,0), _currentScene, "PlayerBullet", "Images/bullet.png");
 
                 if (chance == 1)
-                    pShot = new Bullet(Position, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet(Position, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet", "Images/bullet.png");
 
                 else if (chance == 2)
-                    pShot = new Bullet(Position, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet(Position, (Speed * 2), new Vector2(1, 0), _currentScene, "PlayerBullet", "Images/bullet.png");
 
                 else if (chance >= 3)
-                    pShot = new Bullet(Position, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet");
+                    pShot = new Bullet(Position, (Speed * 2),  new Vector2(1, 0), _currentScene, "PlayerBullet", "Images/bullet.png");
+            pShot.SetScale(50, 50);
 
             CircleCollider pShotCircleCollider = new CircleCollider(10, pShot);
             pShot.Collider = pShotCircleCollider;

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using MathLibrary;
-using Raylib_cs;
+﻿using Raylib_cs;
+using System;
 using System.Diagnostics;
 
 
@@ -16,7 +12,7 @@ namespace TailTag
         private Scene[] _scenes = new Scene[0];
         Stopwatch _stopwatch = new Stopwatch();
 
-        int _tally = 0;
+        float _tally = 0;
 
         private Player _player;
 
@@ -75,10 +71,10 @@ namespace TailTag
             Scene scene = new Scene();
 
             _player = new Player( 30, 225, 500, scene, "Player", "Images/player.png");
-            _player.SetScale(100, 50);
+            _player.SetScale(50, 50);
 
             _enemyOne = new Enemy(800, 100, 30, "Enemy", scene, _player, "Images/enemy.png");
-            _enemyOne.SetScale(500, 500);
+            _enemyOne.SetScale(50, 50);
 
             _enemyTwo = new Enemy( 800, 300, 30, "Enemy", scene, _player, "Images/enemy.png");
             _enemyTwo.SetScale(50, 50);
@@ -135,10 +131,10 @@ namespace TailTag
         /// <summary>
         /// Updates the application and notifies the console of any changes 
         /// </summary>
-        private void Update(float deltTime)
+        private void Update(float deltaTime)
         {
-            _scenes[_currentSceneIndex].Update(deltTime);
-            _scenes[_currentSceneIndex].UpdateUI(deltTime); 
+            _scenes[_currentSceneIndex].Update(deltaTime);
+            _scenes[_currentSceneIndex].UpdateUI(deltaTime); 
             
             if (!_enemyThree.Alive)
                 _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
@@ -147,7 +143,7 @@ namespace TailTag
                 Console.ReadKey(true);
 
             //Creats Enemy Spawn on Update 
-            EnemySpawner();
+            EnemySpawner(deltaTime);
         }
 
         /// <summary>
@@ -210,13 +206,13 @@ namespace TailTag
         /// <summary>
         /// Creats EnemySpawn 
         /// </summary>
-        private void EnemySpawner()
+        private void EnemySpawner( float deltaTime)
         {
             Random rng = new Random();
 
             Enemy addition = new Enemy( 600, 50, 20, "Enemy", _scenes[_currentSceneIndex], _player, "Images/enemy.png");
 
-            if (_tally >= 2000)
+            if (_tally >= .05f)
             {
                 _tally = 0;
 
@@ -238,7 +234,7 @@ namespace TailTag
                 addition.Collider = additionThreeBoxCollider;
 
             }
-            _tally++;
+            _tally += deltaTime;
            
         }
     }

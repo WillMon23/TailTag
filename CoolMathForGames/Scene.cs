@@ -142,7 +142,7 @@ namespace TailTag
                 if (_actors[i] != actor)
                 {
                     tempArray[j] = _actors[i];
-                    j++;
+                     j++;
                 }
                 //Other wise return true
                 else

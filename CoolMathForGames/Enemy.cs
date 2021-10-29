@@ -71,13 +71,16 @@ namespace TailTag
             }
             _tally += deltaTime;
 
+            if (!Alive)
+                _currentScene.RemoveActor(this);
+
         }
         public override void OnCollision(Actor actor)
         {
             if (actor.Name == "PlayerBullet")
             { 
                 _alive = false;
-                _currentScene.RemoveActor(this);
+                //_currentScene.RemoveActor(this);
             }
         }
 

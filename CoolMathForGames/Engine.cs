@@ -76,10 +76,10 @@ namespace TailTag
             _enemyOne = new Enemy(800, 100, 30, "Enemy", scene, _player, "Images/enemy.png");
             _enemyOne.SetScale(50, 50);
 
-            _enemyTwo = new Enemy( 800, 300, 30, "Enemy", scene, _player, "Images/enemy.png");
+            _enemyTwo = new Enemy(800, 300, 30, "Enemy", scene, _player, "Images/enemy.png");
             _enemyTwo.SetScale(50, 50);
 
-            _enemyThree = new Enemy( 800, 200, 30, "Enemy", scene, _player, "Images/enemy.png");
+            _enemyThree = new Enemy(800, 200, 30, "Enemy", scene, _player, "Images/enemy.png");
             _enemyThree.SetScale(50, 50);
 
             CircleCollider playerCircleCollider = new CircleCollider(20, _player);
@@ -138,7 +138,13 @@ namespace TailTag
             
             if (!_enemyThree.Alive)
                 _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
-            
+
+            if (!_enemyThree.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
+
+            if (!_enemyThree.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
+
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
 
@@ -249,6 +255,20 @@ namespace TailTag
             _tally += deltaTime;
            
         }
+
+
+        private void AliveCheck()
+        {
+            if (!_enemyOne.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
+
+            if (!_enemyOne.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
+
+            if (!_enemyThree.Alive)
+                _scenes[_currentSceneIndex].RemoveActor(_enemyThree);
+        }
+
     }
 
 }

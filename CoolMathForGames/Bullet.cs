@@ -79,7 +79,10 @@ namespace TailTag
             if (actor.Name == "EnemyBullet")
                 _currentScene.RemoveActor(this);
 
-            
+            if (actor.Name == "Enemy")
+                _currentScene.RemoveActor(this);
+
+
         }
     }
 }

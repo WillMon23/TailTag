@@ -132,6 +132,7 @@ namespace TailTag
             bool actorRemoved = false;
             //Creat a temp array smaller then the original
             Actor[] tempArray = new Actor[_actors.Length - 1];
+
             //Index of the new array 
             int j = 0;
 
@@ -142,7 +143,7 @@ namespace TailTag
                 if (_actors[i] != actor)
                 {
                     tempArray[j] = _actors[i];
-                     j++;
+                    j++;
                 }
                 //Other wise return true
                 else
